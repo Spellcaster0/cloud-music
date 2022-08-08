@@ -1,10 +1,10 @@
 <template>
-  <svg 
-    class="svg-icon" 
+  <svg
+    class="svg-icon"
     aria-hidden="true"
     :style="{ fontSize: size + 'px', color: color }"
   >
-    <use :xlink:href="iconName" ></use>
+    <use :xlink:href="iconName"></use>
   </svg>
 </template>
 
@@ -12,8 +12,8 @@
 import { computed } from 'vue'
 
 const props = defineProps<{
-  icon: string,
-  size?: string,
+  icon: string
+  size?: string
   color?: string
 }>()
 

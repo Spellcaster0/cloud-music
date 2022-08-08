@@ -6,7 +6,6 @@ const store = userStore()
 onMounted((): void => {
   console.log(store.$state.name)
 })
-
 </script>
 
 <template>

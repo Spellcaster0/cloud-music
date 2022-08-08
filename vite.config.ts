@@ -26,16 +26,16 @@ export default defineConfig({
       // 指定需要缓存的图标文件夹
       iconDirs: [path.resolve(__dirname, './src/icons/svg')],
       // 指定symbolId格式
-      symbolId: 'icon-[dir]-[name]'
-    })
+      symbolId: 'icon-[dir]-[name]',
+    }),
   ],
   server: {
     port: 8002,
-    open: '/'
+    open: '/',
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
-    }
-  }
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 })

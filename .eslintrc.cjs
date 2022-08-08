@@ -5,7 +5,7 @@ module.exports = {
     es2021: true,
   },
   parser: 'vue-eslint-parser',
-  extends: ['eslint:recommended', 'plugin:vue/vue3-essential', 'plugin:@typescript-eslint/recommended'],
+  extends: ['eslint:recommended', 'plugin:vue/vue3-essential', 'plugin:@typescript-eslint/recommended', 'prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
     parser: '@typescript-eslint/parser',
@@ -14,7 +14,7 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     indent: ['error', 2],
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'vue/multi-word-component-names': 'off',
