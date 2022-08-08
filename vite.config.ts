@@ -38,4 +38,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  // 全局引入scss
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData:
+          '@import "@/styles/variables.scss"; @import "@/styles/mixin.scss";'
+      }
+    }
+  }
 })

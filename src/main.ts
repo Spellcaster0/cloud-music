@@ -6,6 +6,9 @@ import { createPinia } from 'pinia'
 // 引入初始化css
 import 'normalize.css'
 
+// 引入样式
+import './styles/index.scss'
+
 // 引入所有svg文件和全局注册svg组件
 import 'virtual:svg-icons-register'
 import svgComponent from './icons'
