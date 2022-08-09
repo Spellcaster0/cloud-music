@@ -4,8 +4,12 @@
       <Header />
     </div>
     <div class="app-main clearFix">
-      <div class="app-aside fl"></div>
-      <div class="app-content fl"></div>
+      <div class="app-aside fl">
+        <Aside />
+      </div>
+      <div class="app-content fl">
+        <router-view />
+      </div>
     </div>
     <div class="app-footer"></div>
   </div>
@@ -13,6 +17,7 @@
 
 <script setup lang="ts">
 import Header from './components/header/index.vue'
+import Aside from './components/aside/index.vue'
 
 </script>
 
@@ -36,16 +41,21 @@ import Header from './components/header/index.vue'
   .app-main {
     width: 100%;
     flex-grow: 1;
-    background: #666;
+    background: #fff;
     .app-aside {
       width: 260px;
       height: 100%;
-      background: #95d475;
+      padding: 10px;
+      border-right: 1px solid $borderColor;
+      background: #fff;
+      box-sizing: border-box;
     }
     .app-content {
       width: calc(100% - 260px);
       height: 100%;
-      background: #f3d19e;
+      padding: 16px 22px;
+      background: #fff;
+      box-sizing: border-box;
     }
   }
   .app-footer {
