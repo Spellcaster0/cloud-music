@@ -2,7 +2,9 @@
   <div class="found-container">
     <Menu />
     <div class="found-content">
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </div>
   </div>
 </template>

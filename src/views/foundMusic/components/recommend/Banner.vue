@@ -13,8 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
 interface Banner {
   imageUrl: string,
   targetId: number
@@ -23,9 +21,6 @@ interface Banner {
 const props = defineProps<{
   banners: Banner[]
 }>()
-
-console.log(props.banners)
-
 </script>
 
 <style lang="scss" scoped>
