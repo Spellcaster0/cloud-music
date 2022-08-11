@@ -29,6 +29,7 @@ import Aside from './components/aside/index.vue'
   height: 100vh;
   min-width: 800px;
   min-height: 500px;
+  max-height: 100vh;
   background: #eee;
   .app-header {
     width: 100%;
@@ -53,7 +54,7 @@ import Aside from './components/aside/index.vue'
     .app-content {
       width: calc(100% - 260px);
       height: 100%;
-      padding: 16px 22px;
+      padding: 16px 22px 0;
       background: #fff;
       box-sizing: border-box;
     }
