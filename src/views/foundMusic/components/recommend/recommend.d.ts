@@ -3,7 +3,9 @@ declare interface Banner {
   targetId: number
 }
 
-declare interface ResBanner<T> {
-  banners: T[]
-  code: number
+declare interface Playlist {
+  id: number,
+  name: string,
+  picUrl: string,
+  playCount: number
 }

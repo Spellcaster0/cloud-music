@@ -8,10 +8,9 @@ declare module '*.vue' {
 }
 
 declare global {
-  interface ResponseSuccess<T = Record<string, unknown>> {
-    data: T,
-    status: number,
-    statusText: string
+  interface ResList<T> {
+    [propName: string]: T[],
+    code: number
   }
 }
 export {}
