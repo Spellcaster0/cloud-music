@@ -21,13 +21,23 @@
       </div>
       <div class="setting">
         <el-icon><Setting /></el-icon>
-        <div class="user">
+        <div 
+          class="user-login" 
+          v-if="userStore.status === 0"
+          @click="showLoginBox = true"
+        >
+          登录
+        </div>
+        <div class="user" v-else>
           <el-avatar :size="36" src="" />
           <span>user</span>
           <el-icon><CaretBottom /></el-icon>
         </div>
       </div>
     </div>
+
+    <!-- 登录框 -->
+    <LoginBox @close-login-box="showLoginBox = false" v-if="showLoginBox" />
 
   </div>
 </template>
@@ -40,10 +50,17 @@ import {
   Setting,
   CaretBottom
 } from '@element-plus/icons-vue'
+import LoginBox from './LoginBox.vue'
+import { useUserStore } from '@/store/user'
 import { ref } from 'vue'
-import type { Ref } from 'vue'
 
-let searchContent: Ref<string> = ref('')
+const userStore = useUserStore()
+userStore.setLoginStatus()
+
+let showLoginBox = ref(false)
+
+let searchContent = ref('')
+
 </script>
 
 <style lang="scss" scoped>
@@ -92,6 +109,17 @@ let searchContent: Ref<string> = ref('')
       @include basicFlexBox();
       width: 160px;
       height: 100%;
+      .user-login {
+        width: 36px;
+        height: 36px;
+        background-color: #f2f2f2;
+        border-radius: 18px;
+        font-size: 14px;
+        text-align: center;
+        line-height: 36px;
+        color: $themeColor;
+        cursor: pointer;
+      } 
       .user {
         @include basicFlexBox();
         cursor: pointer;

@@ -1,15 +1,18 @@
 import { defineStore } from 'pinia'
+import { getLoginStatus } from '@/service/login'
 
-export const userStore = defineStore({
+export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
-    name: 'fa',
+    status: 0   // 登录状态, 0: 未登录, 1: 已登录
   }),
+  getters: {
+
+  },
   actions: {
-    setName(name: string) {
-      this.$patch({
-        name: name,
-      })
-    },
+    async setLoginStatus() {
+      const res: any = await getLoginStatus()      
+      res.data.profile === null ? this.status = 0 : this.status = 1
+    }
   },
 })

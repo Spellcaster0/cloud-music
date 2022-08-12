@@ -20,7 +20,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    if (response.data.code === 200) {
+    if (response.data.code === 200 || response.data.data.code === 200) {
       return response.data
     } else {
       return Promise.reject(new Error('错误！'))
