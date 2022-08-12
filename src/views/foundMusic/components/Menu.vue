@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="recommend"
+    :default-active="$route.path.split('/')[2]"
     class="found-menu"
     mode="horizontal"
     :router="true"

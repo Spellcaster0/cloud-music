@@ -1,7 +1,8 @@
 <template>
   <div class="aside-container">
+    <!-- default-active设置为根据当前路由变化，解决不使用点击菜单跳转导致菜单样式不变化的问题 -->
     <el-menu
-      default-active="/foundmusic"
+      :default-active="'/' + $route.path.split('/')[1]"
       class="aside-menu"
       :router="true"
     >
