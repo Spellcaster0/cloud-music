@@ -29,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'video',
         name: 'video',
         component: () => import('@/views/video/index.vue')
+      },
+      {
+        path: 'playlist',
+        name: 'playlist',
+        component: () => import('@/views/playlist/index.vue')
       }
     ]
   }

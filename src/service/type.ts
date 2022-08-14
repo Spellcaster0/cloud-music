@@ -9,3 +9,21 @@ export interface LoginType {
   profile: any,
   account: any
 }
+
+export interface Song {
+  id: number
+  name: string
+  mv: number
+  // 专辑
+  al: {
+    id: number
+    name: string
+    picUrl: string
+    [propName: string]: any
+  }
+  // 作者
+  ar: Array<{
+    id: number
+    name: string
+  }>
+}

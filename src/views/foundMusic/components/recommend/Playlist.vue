@@ -14,6 +14,7 @@
         :name="item.name"
         :pic="item.picUrl"
         :play-count="item.playCount"
+        @click="$router.push({ path: '/playlist', query: {id: item.id} })"
       />
     </div>
   </div>
@@ -25,6 +26,8 @@ import {
 } from '@element-plus/icons-vue'
 import PlaylistCard from '@/components/PlaylistCard/index.vue'
 
+import { getPlaylistApi } from '@/service/playlist'
+
 interface Playlist {
   id: number,
   name: string,
@@ -35,6 +38,7 @@ interface Playlist {
 const props = defineProps<{
   playlist: Playlist[]
 }>()
+
 </script>
 
 <style lang="scss" scoped>
