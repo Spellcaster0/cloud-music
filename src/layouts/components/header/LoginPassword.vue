@@ -20,6 +20,10 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import type { FormRules, FormInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/store/user'
+
+const userStore = useUserStore()
 
 const formRef = ref<FormInstance>()
 
@@ -50,15 +54,16 @@ const rules = reactive<FormRules>({
   ],
 })
 
-const testLogin = (phone: string, password: string) => {return phone + password}
-
 const submit = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate((valid) => {
     if (valid) {
-      testLogin(loginForm.phone, loginForm.password)
+      userStore.loginPhone(+loginForm.phone, loginForm.password)
     } else {
-      return
+      ElMessage({
+        message: '账号密码格式错误',
+        type: 'error'
+      })
     }
   })
 }

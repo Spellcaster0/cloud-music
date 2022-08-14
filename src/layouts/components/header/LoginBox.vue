@@ -30,14 +30,14 @@ import {
 } from '@element-plus/icons-vue'
 import LoginPassword from './LoginPassword.vue'
 import LoginCode from './LoginCode.vue'
-import { reactive, ref } from 'vue'
+import { reactive, shallowRef } from 'vue'
 
 const emit = defineEmits(['closeLoginBox'])
 
 const closeLoginBox = () => emit('closeLoginBox')
 
 // 动态登录方式组件
-let loginComponent = ref(LoginPassword)
+let loginComponent = shallowRef(LoginPassword)
 
 // 登录方式列表
 const menuList = reactive([

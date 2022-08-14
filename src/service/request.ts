@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
-  timeout: 10000
+  timeout: 15000
 })
 
 // 请求拦截器
@@ -28,10 +28,10 @@ service.interceptors.response.use(
   },
   (err) => {
     ElMessage({
-      message: err.response.status,
+      message: err.response.message || err.response.data.message || err.response.data.msg,
       type: 'error'
     })
-    return Promise.reject(err.response.data.message)
+    return Promise.reject(err.response)
   }
 )
 

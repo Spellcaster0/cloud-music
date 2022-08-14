@@ -1,18 +1,36 @@
 import { defineStore } from 'pinia'
-import { getLoginStatus } from '@/service/login'
+import { loginPhoneApi } from '@/service/login'
+import localCache from '@/utils/cache'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
-    status: 0   // 登录状态, 0: 未登录, 1: 已登录
+    profile: localCache.getCache('profile'),
+    token: localCache.getCache('token') as string,
+    cookie: localCache.getCache('cookie') as string
   }),
   getters: {
 
   },
   actions: {
-    async setLoginStatus() {
-      const res: any = await getLoginStatus()      
-      res.data.profile === null ? this.status = 0 : this.status = 1
+    // 使用手机号密码登录
+    async loginPhone(phone: number, password: string) {
+      const res = await loginPhoneApi(phone, password)
+      console.log(res)
+      
+      this.$patch({
+        profile: res.profile,
+        token: res.token,
+        cookie: res.cookie
+      })
+      localCache.setCache('profile', res.profile)
+      localCache.setCache('token', res.token)
+      localCache.setCache('cookie', res.cookie)
+      
+      router.go(0)
     }
   },
 })

@@ -23,7 +23,7 @@
         <el-icon><Setting /></el-icon>
         <div 
           class="user-login" 
-          v-if="userStore.status === 0"
+          v-if="userStore.token === null"
           @click="showLoginBox = true"
         >
           登录
@@ -52,10 +52,9 @@ import {
 } from '@element-plus/icons-vue'
 import LoginBox from './LoginBox.vue'
 import { useUserStore } from '@/store/user'
-import { ref } from 'vue'
+import { provide, ref } from 'vue'
 
 const userStore = useUserStore()
-userStore.setLoginStatus()
 
 let showLoginBox = ref(false)
 

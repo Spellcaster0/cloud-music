@@ -1,6 +1,17 @@
 import request from './request'
+import type { LoginType } from './type'
 
-// 获取登录状态
-export const getLoginStatus = () => {
-  return request.get('/login/status')
+/**
+ * @description
+ * @param {string} phone
+ * @param {string} password
+ */
+export const loginPhoneApi = (phone: number, password: string) => {
+  return request.post<any, LoginType>(
+    '/login/cellphone',
+    {
+      phone,
+      password
+    }
+  )
 }
