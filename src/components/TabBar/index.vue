@@ -19,15 +19,11 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
 
-interface SelectFunc {
-  (key: string): void
-}
-
 interface PropsType {
   menuList: Array<{ name: string, index: string, component?: Component }>,
   defaultActive?: any,
   router?: boolean,
-  handleSelect?: SelectFunc
+  handleSelect?: (key:string) => void
 }
 
 const props = withDefaults(defineProps<PropsType>(), {

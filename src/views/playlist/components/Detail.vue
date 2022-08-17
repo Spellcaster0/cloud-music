@@ -44,7 +44,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .playlist-detail {
-  padding: 10px;
+  padding: 26px 32px 0;
   .el-image {
     width: 180px;
     border-radius: 5px;

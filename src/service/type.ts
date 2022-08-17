@@ -13,7 +13,8 @@ export interface LoginType {
 export interface Song {
   id: number
   name: string
-  mv: number
+  mv: number                // mv为0是表示没有
+  dt: number                // 时长(毫秒)
   // 专辑
   al: {
     id: number

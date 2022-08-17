@@ -27,3 +27,21 @@ export const numFormatter = (number: number): string => {
 export const dateFormatter = (timeStamp: number) => {
   return dayjs(timeStamp).format('YYYY-MM-DD')
 }
+
+/**
+ * @description 时间格式化
+ * @param { number } time(ms)
+ * @return { string } mm:ss
+ */
+export const timeFormatter = (time: number) => {
+  // 总的秒数
+  const seconds = Math.trunc(time / 1000)
+  // 格式化的分
+  let m: number | string = Math.trunc(seconds / 60)
+  m >= 10 ? m : m = '0' + m
+  // 格式化的秒
+  let s: number | string = seconds % 60
+  s >= 10 ? s : s = '0' + s
+
+  return m + ':' + s
+}
