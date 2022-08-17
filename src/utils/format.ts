@@ -2,6 +2,7 @@
  * @description 格式化相关的函数 
  */
 
+import dayjs from 'dayjs'
 
 /**
  * @description 数字格式化
@@ -16,4 +17,13 @@ export const numFormatter = (number: number): string => {
   } else {
     return number + ''
   }
+}
+
+/**
+ * @description 日期格式化
+ * @param { number } timeStamp
+ * @return { string }
+ */
+export const dateFormatter = (timeStamp: number) => {
+  return dayjs(timeStamp).format('YYYY-MM-DD')
 }

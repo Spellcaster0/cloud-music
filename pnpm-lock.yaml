@@ -12,6 +12,7 @@ specifiers:
   axios: ^0.27.2
   commitizen: ^4.2.5
   cz-conventional-changelog-zh: ^0.0.2
+  dayjs: ^1.11.5
   element-plus: ^2.2.12
   eslint: ^8.21.0
   eslint-plugin-prettier: ^4.2.1
@@ -35,6 +36,7 @@ specifiers:
 dependencies:
   '@element-plus/icons-vue': 2.0.6_vue@3.2.37
   axios: 0.27.2
+  dayjs: 1.11.5
   element-plus: 2.2.12_vue@3.2.37
   normalize.css: 8.0.1
   pinia: 2.0.17_j6bzmzd4ujpabbp5objtwxyjp4
@@ -1382,8 +1384,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /dayjs/1.11.4:
-    resolution: {integrity: sha512-Zj/lPM5hOvQ1Bf7uAvewDaUcsJoI6JmNqmHhHl3nyumwe0XHwt8sWdOVAPACJzCebL8gQCi+K49w7iKWnGwX9g==}
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
     dev: false
 
   /debug/2.6.9:
@@ -1568,7 +1570,7 @@ packages:
       '@types/lodash-es': 4.17.6
       '@vueuse/core': 8.9.4_vue@3.2.37
       async-validator: 4.2.5
-      dayjs: 1.11.4
+      dayjs: 1.11.5
       escape-html: 1.0.3
       lodash: 4.17.21
       lodash-es: 4.17.21

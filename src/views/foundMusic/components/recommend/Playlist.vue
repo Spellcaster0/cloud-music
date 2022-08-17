@@ -26,8 +26,6 @@ import {
 } from '@element-plus/icons-vue'
 import PlaylistCard from '@/components/PlaylistCard/index.vue'
 
-import { getPlaylistApi } from '@/service/playlist'
-
 interface Playlist {
   id: number,
   name: string,

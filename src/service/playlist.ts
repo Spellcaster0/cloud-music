@@ -1,12 +1,12 @@
 import request from './request'
-import type { Song } from './type'
+import type { Song, PlaylistDetail } from './type'
 
 /**
  * @description 获取歌单详情
  * @param {number} id
  */
 export const getPlaylistDetailApi = (id: number) => {
-  return request.post(
+  return request.post<any, ResObj<PlaylistDetail>>(
     '/playlist/detail',
     { id }
   )

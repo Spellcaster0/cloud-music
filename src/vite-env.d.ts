@@ -12,5 +12,9 @@ declare global {
     [propName: string]: T[],
     code: number
   }
+  interface ResObj<T> {
+    [propName: string]: T,
+    code: number
+  }
 }
 export {}
