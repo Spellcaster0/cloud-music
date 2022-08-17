@@ -4,24 +4,33 @@ export const usePlaylistStore = defineStore({
   id: 'playlist',
   state: () => ({
     playlist: [{
-      id: 1490104654,
-      name: '我又想你了',
+      id: 786262,
+      name: 'you',
       mv: 0,
+      dt: 214845,
+      // 别名
+      alia: [
+        'TV动画《寒蝉鸣泣之时 解》原声'
+      ],
       // 专辑
       al: {
-        id: 96799251,
-        name: '我又想你了',
-        picUrl: 'https://p1.music.126.net/XnLAbFfmIEyHW3_mtvvKrA==/109951165416746532.jpg'
+        id: 77700,
+        name: 'Thanks You',
+        picUrl: 'https://p1.music.126.net/KK6lEOnt-ADbrvT7cflDaQ==/109951163296300547.jpg'
       },
-      // 作者
+      // 歌手
       ar: [{
-        id: 34171281,
-        name: '善喜'
+        id: 20579,
+        name: 'M.Graveyard'
       }]
-    }]
+    }],
+    playIndex: 0      // 播放列表索引
   }),
   getters: {
-
+    // 当前歌曲
+    currentSong (state) {
+      return state.playlist[state.playIndex]
+    }
   },
   actions: {
 
