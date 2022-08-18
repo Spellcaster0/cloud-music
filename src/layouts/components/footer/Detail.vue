@@ -1,6 +1,9 @@
 <template>
   <div class="detail-container">
-    <el-image :src="playlistStore.currentSong.al.picUrl" fit="cover" />
+    <div class="image">
+      <el-image :src="playlistStore.currentSong.al.picUrl" fit="cover" />
+      <svg-icon icon="arrow-up" size="24" color="#cacaca" />
+    </div>
     <div class="detail-text">
       <h3>
         {{ playlistStore.currentSong.name }}
@@ -30,23 +33,52 @@ const playlistStore = usePlaylistStore()
 .detail-container {
   @include basicFlexBox($justifyContent: flex-start);
   width: 248px;
-  .el-image {
+  .image {
+    position: relative;
     width: 50px;
     height: 50px;
     margin-right: 12px;
-    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    .svg-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+    .el-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+    }
+    &:hover {
+      .el-image {
+        filter: blur(1px) brightness(60%);
+      }
+      .svg-icon {
+        opacity: 1;
+      }
+    }
+
   }
+
   .detail-text {
     width: calc(248px - 12px - 50px);
     white-space: nowrap;
     overflow: hidden;
+    cursor: pointer;
     h3 {
       margin: 0;
-      font-size: 18px;
+      font-size: 16px;
+      font-weight: 400;
+      span {
+        color: #666;
+      }
     }
     p {
-      
-      margin: 0;
+      margin: 5px 0 0 0;
+      font-size: 14px;
     }
   }
 }

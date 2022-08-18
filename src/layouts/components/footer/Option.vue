@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="option-container">
     选项
   </div>
 </template>
@@ -9,5 +9,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+.option-container {
+  width: 248px;
+}
 </style>
