@@ -3,8 +3,11 @@
     ref="songTable"
     class="song-list"
     :data="shawSongList" 
-    stripe 
+    stripe
+    highlight-current-row
     style="width: 100%"
+    :row-class-name="tableRowClassName"
+    @row-dblclick="playSong"
   >
     <el-table-column type="index" :index="indexMethod" />
     <el-table-column label="操作" width="80">
@@ -37,10 +40,12 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import type { Song } from '@/service/type'
 import { timeFormatter } from '@/utils/format'
+import { usePlaylistStore } from '@/store/playlist' 
 
 // const songTable = ref<any>(null)
 
 const route = useRoute()
+const playlistStore = usePlaylistStore()
 
 // 歌曲列表
 let songList: Song[]
@@ -49,11 +54,26 @@ const shawSongList = ref<Song[]>([])
 
 // 索引方法
 const indexMethod = (index: number) => {
-  return index + 1 >= 10 ? index + 1 : index + 1 + '0'
+  return index + 1 >= 10 ? index + 1 : '0' + (index + 1)
 }
 
 const handleClick = (row: Song) => {
   console.log(row) 
+}
+
+// 把行索引放在row中
+const tableRowClassName = ({ row, rowIndex }: {row: Song, rowIndex: number}) => {
+  row.index = rowIndex
+}
+// 双击播放
+const playSong = (row: Song) => {
+  playlistStore.$patch({
+    playlist: shawSongList.value,
+    playIndex: row.index,
+    playlistId: parseInt(route.query.id as string),
+    playing: true
+  })
+  
 }
 
 // onMounted(() => {
@@ -63,6 +83,7 @@ const handleClick = (row: Song) => {
 //     text: '加载中...'
 //   })
 // })
+
 
 getPlaylistApi(parseInt(route.query.id as string)).then(res => {
   songList = res.songs

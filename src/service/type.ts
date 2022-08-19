@@ -28,7 +28,8 @@ export interface Song {
   ar: Array<{
     id: number
     name: string
-  }>
+  }>,
+  [propName: string]: any
 }
 
 // 歌单详情

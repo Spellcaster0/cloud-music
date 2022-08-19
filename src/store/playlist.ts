@@ -24,7 +24,9 @@ export const usePlaylistStore = defineStore({
         name: 'M.Graveyard'
       }]
     }],
-    playIndex: 0      // 播放列表索引
+    playlistId: 0,    // 当前播放歌单id
+    playIndex: 0,     // 播放列表索引
+    playing: false    // 是否正在播放
   }),
   getters: {
     // 当前歌曲
