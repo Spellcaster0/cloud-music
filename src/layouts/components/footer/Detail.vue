@@ -1,10 +1,10 @@
 <template>
   <div class="detail-container">
-    <div class="image">
+    <div class="image" @click="changeSongShaw">
       <el-image :src="playlistStore.currentSong.al.picUrl" fit="cover" />
       <svg-icon icon="arrow-up" size="24" color="#cacaca" />
     </div>
-    <div class="detail-text">
+    <div class="detail-text" @click="changeSongShaw">
       <h3>
         {{ playlistStore.currentSong.name }}
         <span v-if="playlistStore.currentSong.alia.length !== 0">
@@ -24,9 +24,14 @@
 
 <script setup lang="ts">
 import { usePlaylistStore } from '@/store/playlist'
+import { useAppStore } from '@/store/app'
 
 const playlistStore = usePlaylistStore()
+const appStore = useAppStore()
 
+const changeSongShaw = () => {
+  appStore.songShow = !appStore.songShow
+}
 </script>
 
 <style lang="scss" scoped>
