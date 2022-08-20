@@ -18,12 +18,22 @@ import Detail from './Detail.vue'
 import Play from './Play.vue'
 import Option from './Option.vue'
 import { usePlaylistStore } from '@/store/playlist'
+import { useSongStore } from '@/store/song'
 import { storeToRefs } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const playlistStore = usePlaylistStore()
-
 const { currentSong, playing } = storeToRefs(playlistStore)
+
+const songStore = useSongStore()
+// 初始化歌词
+onMounted(() => {
+  songStore.setLyricList()
+})
+// 监听歌曲id变化, 获取当前歌词
+watch(() => playlistStore.currentSong.id, () => {
+  songStore.setLyricList()
+})
 
 const audio = ref<HTMLAudioElement>()
 const autoplay = ref(false)

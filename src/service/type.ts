@@ -51,3 +51,15 @@ export interface PlaylistDetail {
     avatarUrl: string       // 头像
   }
 }
+
+// 歌词
+export interface Lyric {
+  code: number
+  lrc: {
+    lyric: string
+  }
+  // 翻译歌词
+  tlyric: {
+    lyric: string
+  }
+} 
