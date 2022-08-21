@@ -37,10 +37,10 @@
 // import { ElLoading } from 'element-plus'
 import { getPlaylistApi } from '@/service/playlist'
 import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import type { Song } from '@/service/type'
 import { timeFormatter } from '@/utils/format'
-import { usePlaylistStore } from '@/store/playlist' 
+import { usePlaylistStore } from '@/store/playlist'
 
 // const songTable = ref<any>(null)
 

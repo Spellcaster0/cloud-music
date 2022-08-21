@@ -38,8 +38,10 @@
 import { ref } from 'vue'
 import { usePlaylistStore } from '@/store/playlist'
 import { timeFormatter } from '@/utils/format'
+import { useSongStore } from '@/store/song'
 
 const playlistStore = usePlaylistStore()
+const songStore = useSongStore()
 
 const emit = defineEmits(['timeChange'])
 const props = defineProps<{
@@ -77,6 +79,7 @@ const backward = () => {
   } else {
     playlistStore.playIndex -= 1
   }
+  playlistStore.playing = true
 }
 // 下一首
 const forward = () => {
@@ -85,6 +88,7 @@ const forward = () => {
   } else {
     playlistStore.playIndex += 1
   }
+  playlistStore.playing = true
 }
 </script>
 

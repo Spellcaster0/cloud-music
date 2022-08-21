@@ -30,8 +30,9 @@ const songStore = useSongStore()
 onMounted(() => {
   songStore.setLyricList()
 })
-// 监听歌曲id变化, 获取当前歌词
-watch(() => playlistStore.currentSong.id, () => {
+
+// 监听歌曲变化
+watch([() => playlistStore.playIndex, () => playlistStore.playlistId], () => {  
   songStore.setLyricList()
 })
 
@@ -45,9 +46,9 @@ watch(playing, (newVal) => {
     autoplay.value = true
   }
   if (newVal) {
-    audio.value?.play()
+    audio?.value?.play()
   } else {
-    audio.value?.pause()
+    audio?.value?.pause()
   }
 }, {
   immediate: true,
@@ -56,6 +57,7 @@ watch(playing, (newVal) => {
 // 监听播放进度
 const timeUpdate = () => {
   currentTime.value = audio.value?.currentTime as number
+  songStore.currentTime = (audio.value?.currentTime as number) * 1000
 }
 
 const timeChange = (time: number) => {
