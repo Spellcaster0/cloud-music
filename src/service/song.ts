@@ -7,5 +7,5 @@ import type { Lyric } from './type'
  * @return 
  */
 export const getLyricApi = (id: number) => {
-  return request.post<any, Lyric>('/lyric', { id })
+  return request.get<any, Lyric>(`/lyric?id=${id}&timestamp=${Date.now()}`)
 }
