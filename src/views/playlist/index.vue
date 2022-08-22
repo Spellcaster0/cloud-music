@@ -17,14 +17,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue'
+import { ref, shallowRef, watch } from 'vue'
 import Detail from './components/Detail.vue'
 import TabBar from '@/components/TabBar/index.vue'
 import SongList from './components/SongList.vue'
 import Comment from './components/Comment.vue'
 import Subscriber from './components/Subscriber.vue'
 import { useRoute } from 'vue-router'
-import { getPlaylistDetailApi, getPlaylistApi } from '@/service/playlist'
+import { getPlaylistDetailApi } from '@/service/playlist'
 import type { PlaylistDetail } from '@/service/type'
 import { numFormatter } from '@/utils/format'
 import { Search } from '@element-plus/icons-vue'
@@ -66,10 +66,18 @@ const handleSelect = (key: string) => {
 
 let search = ref('')
 
-getPlaylistDetailApi(parseInt(route.query.id as string)).then(res => {
-  playlistDetail.value = res.playlist
-  menuList.value[1].name += `(${numFormatter(res.playlist.commentCount)})` 
+const getPlaylistDetail = () => {
+  getPlaylistDetailApi(parseInt(route.query.id as string)).then(res => {
+    playlistDetail.value = res.playlist
+    menuList.value[1].name = `评论(${numFormatter(res.playlist.commentCount)})` 
+  })
+}
+getPlaylistDetail()
+
+watch(() => route.query.id, () => {
+  getPlaylistDetail()
 })
+
 </script>
 
 <style lang="scss" scoped>

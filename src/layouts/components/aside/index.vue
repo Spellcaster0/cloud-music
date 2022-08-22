@@ -12,11 +12,31 @@
       <el-menu-item index="/video">
         <span>视频</span>
       </el-menu-item>
+      <el-menu-item
+        v-for="item in userStore.playlist"
+        :key="item.id"
+        :index="`/playlist?id=${item.id}`"
+      >
+        <div>{{ item.name }}</div>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
+import { getUserPlaylist } from '@/service/user'
+import { useUserStore } from '@/store/user'
+import { onMounted } from 'vue'
+
+const userStore = useUserStore()
+
+onMounted(async() => {
+  if (userStore.profile) {
+    const res = await getUserPlaylist(userStore.profile.userId)
+    userStore.playlist = res.playlist
+  }
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -33,6 +53,11 @@
       letter-spacing: 1px;
       color: #000;
       border-radius: 5px;
+      div {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       &:hover {
         background-color: #ececec7d;
       }

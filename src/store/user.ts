@@ -7,7 +7,8 @@ export const useUserStore = defineStore({
   state: () => ({
     profile: localCache.getCache('profile'),
     token: localCache.getCache('token') as string,
-    cookie: localCache.getCache('cookie') as string
+    cookie: localCache.getCache('cookie') as string,
+    playlist: [{id: 0, name: '', userId: 0}]
   }),
   getters: {
 
@@ -19,7 +20,7 @@ export const useUserStore = defineStore({
       
       this.$patch({
         profile: res.profile,
-        token: res.token,
+        token: 'Bearer ' + res.token,
         cookie: res.cookie
       })
       localCache.setCache('profile', res.profile)

@@ -37,7 +37,7 @@
 // import { ElLoading } from 'element-plus'
 import { getPlaylistApi } from '@/service/playlist'
 import { useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Song } from '@/service/type'
 import { timeFormatter } from '@/utils/format'
 import { usePlaylistStore } from '@/store/playlist'
@@ -73,7 +73,6 @@ const playSong = (row: Song) => {
     playlistId: parseInt(route.query.id as string),
     playing: true
   })
-  
 }
 
 // onMounted(() => {
@@ -84,12 +83,16 @@ const playSong = (row: Song) => {
 //   })
 // })
 
+const getPlaylist = () => {
+  getPlaylistApi(parseInt(route.query.id as string)).then(res => {
+    songList = res.songs
+    shawSongList.value = res.songs
+    // loading.close()
+  })
+}
+getPlaylist()
 
-getPlaylistApi(parseInt(route.query.id as string)).then(res => {
-  songList = res.songs
-  shawSongList.value = res.songs
-  // loading.close()
-})
+watch(() => route.query.id, () => getPlaylist())
 
 </script>
 
