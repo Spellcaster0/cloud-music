@@ -14,8 +14,13 @@ const lyricsWrap = ref<HTMLElement>()
 // 歌词列表
 const pRefs = ref<HTMLElement[]>([])
 
+function easeOutCubic(x: number): number {
+  // return 1 - Math.pow(1 - x, 3)
+  return x
+}
+
 // 监听歌曲播放, 滚动歌词
-watch(() => songStore.currentTime, () => {  
+watch(() => songStore.currentTime, () => {
   let activeOffsetTop = 0
   pRefs.value.forEach((item) => {
     if (Array.from(item.classList).includes('lyric-active')) {
@@ -23,7 +28,17 @@ watch(() => songStore.currentTime, () => {
     }
   })
   if (lyricsWrap.value instanceof HTMLElement) {
-    lyricsWrap.value.scrollTop = activeOffsetTop - 330
+    const duration = activeOffsetTop - 320
+    const begin = lyricsWrap.value.scrollTop
+    let time = lyricsWrap.value.scrollTop
+    const anime = () => {
+      time = Math.min(time + (duration - begin) / 30, duration)
+      lyricsWrap.value!.scrollTop = easeOutCubic(time / duration) * duration
+      if ((begin < duration && time < duration) || (begin > duration && time > duration)) {
+        requestAnimationFrame(anime)
+      }
+    }
+    anime()
   }
 })
 
@@ -83,6 +98,18 @@ watch(() => songStore.currentTime, () => {
     padding: 0 10px;
     overflow-y: scroll;
     box-sizing: border-box;
+    &::-webkit-scrollbar {
+      width: 6px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #bebebe00;
+      border-radius: 3px;
+      transition: background-color 0.3s ease;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+      background-color: #bebebe;
+    }
     .lyrics {
       margin: 160px auto;
       p {
