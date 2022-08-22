@@ -63,3 +63,25 @@ export interface Lyric {
     lyric: string
   }
 } 
+
+// 评论
+export interface Comment {
+  commentId: 5733122034
+  content: string
+  time: number
+  likedCount: number
+  timeStr: string
+  user: {
+    userId: number
+    avatarUrl: string,
+    nickname: string
+  }
+  // 回复用户
+  beReplied: Array<{
+    content: string
+    user: {
+      userId: number
+      nickname: string
+    }
+  }>
+}

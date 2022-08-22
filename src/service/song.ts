@@ -1,5 +1,5 @@
 import request from './request'
-import type { Lyric } from './type'
+import type { Lyric, Comment } from './type'
 
 /**
  * @description 获取歌词
@@ -8,4 +8,25 @@ import type { Lyric } from './type'
  */
 export const getLyricApi = (id: number) => {
   return request.get<any, Lyric>(`/lyric?id=${id}&timestamp=${Date.now()}`)
+}
+
+/**
+ * @description 获取评论
+ * @param {number} id
+ * @param {number} limit
+ * @param {number} offset
+ * @return
+ */
+export const getSongComment = (id: number, limit?: number, offset?: number) => {
+  return request.get<any, { code: number, comments: Comment[], total: number }>(
+    '/comment/music',
+    {
+      params: {
+        id,
+        limit,
+        offset,
+        timestamp: Date.now()
+      }
+    }
+  )
 }
