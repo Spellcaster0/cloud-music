@@ -31,10 +31,10 @@ import {
 import LoginPassword from './LoginPassword.vue'
 import LoginCode from './LoginCode.vue'
 import { reactive, shallowRef } from 'vue'
+import { useAppStore } from '@/store/app'
 
-const emit = defineEmits(['closeLoginBox'])
-
-const closeLoginBox = () => emit('closeLoginBox')
+const appStore = useAppStore()
+const closeLoginBox = () => appStore.showLoginBox = false
 
 // 动态登录方式组件
 let loginComponent = shallowRef(LoginPassword)

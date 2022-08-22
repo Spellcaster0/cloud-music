@@ -21,6 +21,7 @@
 import { reactive, ref } from 'vue'
 import type { FormRules, FormInstance } from 'element-plus'
 import { ElMessage } from 'element-plus'
+
 import { useUserStore } from '@/store/user'
 
 const userStore = useUserStore()
@@ -59,6 +60,10 @@ const submit = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       userStore.loginPhone(+loginForm.phone, loginForm.password)
+      ElMessage({
+        message: '登录成功',
+        type: 'success'
+      })
     } else {
       ElMessage({
         message: '账号密码格式错误',

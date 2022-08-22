@@ -24,20 +24,20 @@
         <div 
           class="user-login" 
           v-if="userStore.token === null"
-          @click="showLoginBox = true"
+          @click="appStore.showLoginBox = true"
         >
           登录
         </div>
         <div class="user" v-else>
-          <el-avatar :size="36" src="" />
-          <span>user</span>
+          <el-avatar :size="36" :src="userStore.profile.avatarUrl" />
+          <span>{{ userStore.profile.nickname }}</span>
           <el-icon><CaretBottom /></el-icon>
         </div>
       </div>
     </div>
 
     <!-- 登录框 -->
-    <LoginBox @close-login-box="showLoginBox = false" v-if="showLoginBox" />
+    <LoginBox v-if="appStore.showLoginBox" />
 
   </div>
 </template>
@@ -52,11 +52,11 @@ import {
 } from '@element-plus/icons-vue'
 import LoginBox from './LoginBox.vue'
 import { useUserStore } from '@/store/user'
-import { provide, ref } from 'vue'
+import { useAppStore } from '@/store/app'
+import { ref } from 'vue'
 
 const userStore = useUserStore()
-
-let showLoginBox = ref(false)
+const appStore = useAppStore()
 
 let searchContent = ref('')
 

@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia'
 import { loginPhoneApi } from '@/service/login'
 import localCache from '@/utils/cache'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -19,7 +16,6 @@ export const useUserStore = defineStore({
     // 使用手机号密码登录
     async loginPhone(phone: number, password: string) {
       const res = await loginPhoneApi(phone, password)
-      console.log(res)
       
       this.$patch({
         profile: res.profile,
@@ -29,8 +25,6 @@ export const useUserStore = defineStore({
       localCache.setCache('profile', res.profile)
       localCache.setCache('token', res.token)
       localCache.setCache('cookie', res.cookie)
-      
-      router.go(0)
     }
   },
 })
