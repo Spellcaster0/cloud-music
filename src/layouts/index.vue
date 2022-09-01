@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" ref="app" @click="appClick($event)" >
     <div class="app-header">
       <Header />
     </div>
@@ -42,6 +42,18 @@ watch(() => appStore.songShow, (newVal) => {
     }, 500)
   }
 })
+
+// 点击非搜索盒子区域时, 关闭盒子
+const app = ref<HTMLElement>()
+const appClick = (e: MouseEvent) => {
+  if (appStore.searchBox && appStore.searchInput) {
+    if (
+      appStore.searchBox.contains(e.target as HTMLElement) ||
+      appStore.searchInput.contains(e.target as HTMLElement) 
+    ) return
+    appStore.showSearchBox = false  
+  } 
+}
 
 </script>
 

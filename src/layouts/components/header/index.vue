@@ -17,6 +17,9 @@
           size="large"
           placeholder="搜索"
           :prefix-icon="Search"
+          ref="input"
+          @focus="appStore.showSearchBox = true"
+          @keyup.enter="searchEnter"
         />
       </div>
       <div class="setting">
@@ -38,7 +41,7 @@
 
     <!-- 登录框 -->
     <LoginBox v-if="appStore.showLoginBox" />
-
+    <SearchBox v-if="appStore.showSearchBox"/>
   </div>
 </template>
 
@@ -51,20 +54,41 @@ import {
   CaretBottom
 } from '@element-plus/icons-vue'
 import LoginBox from './LoginBox.vue'
+import SearchBox from './SearchBox.vue'
 import { useUserStore } from '@/store/user'
 import { useAppStore } from '@/store/app'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import localCache from '@/utils/cache'
 
 const userStore = useUserStore()
 const appStore = useAppStore()
+const router = useRouter()
 
 let searchContent = ref('')
 
+const searchHistory = ref<string[]>([])
+searchHistory.value = localCache.getCache('searchHistory') ?? []
+
+// 获取input元素, 在layout/index中使用, 判断searchBox的显示和消失
+const input = ref()
+onMounted(() => {
+  appStore.searchInput = input.value.input
+})
+
+const searchEnter = () => {
+  input.value?.blur()
+  appStore.showSearchBox = false
+  searchHistory.value.unshift(searchContent.value)
+  localCache.setCache('searchHistory', searchHistory.value)
+  router.push({ name: 'search', query: { keywords: searchContent.value } })
+}
 </script>
 
 <style lang="scss" scoped>
 .header-container {
   @include basicFlexBox();
+  position: relative;
   width: 100%;
   height: 100%;
   .logo {

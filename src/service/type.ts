@@ -85,3 +85,30 @@ export interface Comment {
     }
   }>
 }
+
+// 搜索结果
+export interface SearchSong {
+    id: number
+    name: string
+    mvid: number                // mv为0是表示没有
+    duration: number                // 时长(毫秒)
+    // 别名
+    alia: string[]
+    // 专辑
+    album: {
+      id: number
+      name: string
+      [propName: string]: any
+    }
+    // 作者
+    artists: Array<{
+      id: number
+      name: string
+    }>,
+    [propName: string]: any
+}
+
+export interface SearchResult {
+  songCount: number
+  songs: Array<SearchSong>
+}

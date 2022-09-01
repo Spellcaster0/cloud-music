@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { getSongDetail } from '@/service/song'
+import type { SearchSong } from '@/service/type'
 
 export const usePlaylistStore = defineStore({
   id: 'playlist',
@@ -35,6 +37,10 @@ export const usePlaylistStore = defineStore({
     }
   },
   actions: {
-
+    // 插入歌曲
+    async insertSong(song: SearchSong) {
+      const res = await getSongDetail(song.id)      
+      this.playlist.splice(this.playIndex, 0, res.songs[0])
+    }
   }
 })
