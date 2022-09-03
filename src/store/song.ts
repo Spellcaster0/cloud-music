@@ -14,7 +14,8 @@ export const useSongStore = defineStore({
       time: 100000,
       next: 100000
     }],                   // 歌词列表
-    currentTime: 0        // 当前播放时间
+    currentTime: 0,       // 当前播放时间
+    duration: 0           // 总时间
   }),
   getters: {
     

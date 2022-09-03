@@ -3,6 +3,7 @@ import { usePlaylistStore } from '@/store/playlist'
 import { storeToRefs } from 'pinia'
 import { useSongStore } from '@/store/song'
 import { ref, watch } from 'vue'
+import throttle from '@/utils/throttle'
 
 const playlistStore = usePlaylistStore()
 const { currentSong } = storeToRefs(playlistStore)
@@ -14,33 +15,52 @@ const lyricsWrap = ref<HTMLElement>()
 // 歌词列表
 const pRefs = ref<HTMLElement[]>([])
 
-function easeOutCubic(x: number): number {
-  // return 1 - Math.pow(1 - x, 3)
+function linear(x: number): number {
   return x
 }
+function easeInOutSine(x: number): number {
+  return -(Math.cos(Math.PI * x) - 1) / 2
+}
+function easeOutSine(x: number): number {
+  return Math.sin((x * Math.PI) / 2)
+}
 
+let flag = true
 // 监听歌曲播放, 滚动歌词
-watch(() => songStore.currentTime, () => {
+watch(() => songStore.currentTime, throttle(() => {
+  if (!flag) return
+
   let activeOffsetTop = 0
   pRefs.value.forEach((item) => {
     if (Array.from(item.classList).includes('lyric-active')) {
       activeOffsetTop = item.offsetTop
+      return
     }
   })
   if (lyricsWrap.value instanceof HTMLElement) {
-    const duration = activeOffsetTop - 320
+    const end = activeOffsetTop - 320
     const begin = lyricsWrap.value.scrollTop
+    const duration = end - begin
     let time = lyricsWrap.value.scrollTop
     const anime = () => {
-      time = Math.min(time + (duration - begin) / 30, duration)
-      lyricsWrap.value!.scrollTop = easeOutCubic(time / duration) * duration
-      if ((begin < duration && time < duration) || (begin > duration && time > duration)) {
+      flag = false
+      if (end > begin) {
+        time = Math.min(time + duration / 30, end)
+      } else {
+        time = Math.max(time + duration / 30, end)
+      }
+      
+      lyricsWrap.value!.scrollTop = linear(time / end) * end
+      
+      if ((begin < end && time < end) || (begin > end && time > end)) {
         requestAnimationFrame(anime)
+      } else {
+        flag = true
       }
     }
     anime()
   }
-})
+}, 500))
 
 </script>
 
@@ -114,7 +134,7 @@ watch(() => songStore.currentTime, () => {
       margin: 160px auto;
       p {
         color: #5c5b5b;
-        margin: 32px 0;
+        margin: 60px 0;
       }
       .lyric-active {
         font-size: 18px;
@@ -124,7 +144,7 @@ watch(() => songStore.currentTime, () => {
       }
       // 距下一句时间较长
       .lyric-long {
-        margin: 32px 0 60px;
+        margin: 32px 0 100px;
       }
     }
     

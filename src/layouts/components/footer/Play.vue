@@ -28,7 +28,7 @@
         @input="sliderInput"
       />
       <span class="totalTime">
-        {{ typeof duration === 'undefined' ? '' : timeFormatter(duration * 1000) }}
+        {{ isNaN(duration as number) ? '00:00' : timeFormatter((duration as number) * 1000) }}
       </span>
     </div>
   </div>
@@ -38,16 +38,15 @@
 import { ref } from 'vue'
 import { usePlaylistStore } from '@/store/playlist'
 import { timeFormatter } from '@/utils/format'
-import { useSongStore } from '@/store/song'
 
 const playlistStore = usePlaylistStore()
-const songStore = useSongStore()
 
 const emit = defineEmits(['timeChange'])
 const props = defineProps<{
   currentTime: number
   duration: number | undefined
 }>()
+
 
 // 绑定和展示的当前时间, 单位毫秒
 const currentTimeValue = ref(props.currentTime)
@@ -113,6 +112,7 @@ const forward = () => {
       background-color: #f7f7f7;
       border: none;
       color: #333;
+      outline: #f2f2f2;
       &:hover {
         background-color: #f2f2f2;
       }

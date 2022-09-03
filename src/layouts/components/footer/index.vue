@@ -40,6 +40,7 @@ const audio = ref<HTMLAudioElement>()
 const autoplay = ref(false)
 const currentTime = ref(0)
 
+
 // 监听播放状态
 watch(playing, (newVal) => {  
   if (!autoplay.value) {
@@ -50,8 +51,6 @@ watch(playing, (newVal) => {
   } else {
     audio?.value?.pause()
   }
-}, {
-  immediate: true,
 })
 
 // 监听播放进度
