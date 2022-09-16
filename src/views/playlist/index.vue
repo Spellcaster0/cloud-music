@@ -7,7 +7,7 @@
       <tab-bar 
         :menu-list="menuList" 
         :default-active="menuList[0].index"
-        :handle-select="handleSelect"
+        @handle-select="handleSelect"
       />
       <el-input v-model="search" placeholder="搜索歌单音乐" :suffix-icon="Search"/>
     </div>

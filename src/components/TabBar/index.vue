@@ -4,7 +4,7 @@
     class="tab-bar"
     mode="horizontal"
     :router="router"
-    @select="handleSelect"
+    @select="handle"
   >
     <el-menu-item
       v-for="item in menuList"
@@ -23,7 +23,6 @@ interface PropsType {
   menuList: Array<{ name: string, index: string, component?: Component }>,
   defaultActive?: any,
   router?: boolean,
-  handleSelect?: (key:string) => void
 }
 
 const props = withDefaults(defineProps<PropsType>(), {
@@ -41,6 +40,8 @@ const props = withDefaults(defineProps<PropsType>(), {
   router: false
 })
 
+const emits = defineEmits(['handleSelect'])
+const handle = () => emits('handleSelect')
 </script>
 
 <style lang="scss" scoped>

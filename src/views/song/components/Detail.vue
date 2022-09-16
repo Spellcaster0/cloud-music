@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import { useSongStore } from '@/store/song'
 import { ref, watch } from 'vue'
 import throttle from '@/utils/throttle'
+import { easeInOutSine } from '@/utils/easings'
 
 const playlistStore = usePlaylistStore()
 const { currentSong } = storeToRefs(playlistStore)
@@ -15,44 +16,47 @@ const lyricsWrap = ref<HTMLElement>()
 // 歌词列表
 const pRefs = ref<HTMLElement[]>([])
 
-function linear(x: number): number {
-  return x
-}
-function easeInOutSine(x: number): number {
-  return -(Math.cos(Math.PI * x) - 1) / 2
-}
-function easeOutSine(x: number): number {
-  return Math.sin((x * Math.PI) / 2)
-}
-
 let flag = true
+const speed = 1
+let speedCount = 1
+let activeOffsetTop = 0
 // 监听歌曲播放, 滚动歌词
 watch(() => songStore.currentTime, throttle(() => {
   if (!flag) return
 
-  let activeOffsetTop = 0
-  pRefs.value.forEach((item) => {
-    if (Array.from(item.classList).includes('lyric-active')) {
-      activeOffsetTop = item.offsetTop
+  let temp = 0
+  pRefs.value.some((item) => {
+    if (item.classList.contains('lyric-active')) {
+      temp = item.offsetTop
       return
     }
   })
+  if (activeOffsetTop === temp) return
+  activeOffsetTop = temp
+
   if (lyricsWrap.value instanceof HTMLElement) {
     const end = activeOffsetTop - 320
     const begin = lyricsWrap.value.scrollTop
-    const duration = end - begin
-    let time = lyricsWrap.value.scrollTop
-    const anime = () => {
-      flag = false
+    const distance = end - begin
+    let current = 0
+    const frame = () => {
       if (end > begin) {
-        time = Math.min(time + duration / 30, end)
+        current = Math.min(current + distance / 30, distance)
       } else {
-        time = Math.max(time + duration / 30, end)
+        current = Math.max(current + distance / 30, distance)
       }
       
-      lyricsWrap.value!.scrollTop = linear(time / end) * end
-      
-      if ((begin < end && time < end) || (begin > end && time > end)) {
+      lyricsWrap.value!.scrollTop = easeInOutSine(current / distance) * distance + begin
+    }
+
+    const anime = () => {
+      flag = false
+      if (speedCount % speed === 0) {
+        frame()
+      }
+      speedCount++
+
+      if (current / distance < 1) {
         requestAnimationFrame(anime)
       } else {
         flag = true
@@ -60,7 +64,7 @@ watch(() => songStore.currentTime, throttle(() => {
     }
     anime()
   }
-}, 500))
+}, 1000 / 60))
 
 </script>
 
