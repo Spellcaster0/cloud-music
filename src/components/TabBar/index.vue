@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<PropsType>(), {
 })
 
 const emits = defineEmits(['handleSelect'])
-const handle = () => emits('handleSelect')
+const handle = (index: string) => emits('handleSelect', index)
 </script>
 
 <style lang="scss" scoped>

@@ -28,7 +28,20 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'video',
         name: 'video',
-        component: () => import('@/views/video/index.vue')
+        component: () => import('@/views/video/index.vue'),
+        redirect: '/video/video',
+        children: [
+          {
+            path: 'video',
+            name: 'video-video',
+            component: () => import('@/views/video/video/index.vue')
+          },
+          {
+            path: 'mv',
+            name: 'mv',
+            component: () => import('@/views/video/mv/index.vue')
+          }
+        ]
       },
       {
         path: 'playlist',

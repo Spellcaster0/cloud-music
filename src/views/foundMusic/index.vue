@@ -23,10 +23,10 @@ const scrollHeight = window.innerHeight - 55 - 36 - 70 -16
 <style lang="scss" scoped>
 .found-container {
   overflow: hidden;
-  padding: 16px 22px 0;
+  padding: $contentPaddingTop 0 0 $contentPaddingLeft;
   .found-content {
     margin-top: 20px;
-    padding: 0 12px;
+    padding-right: $contentPaddingLeft;
     box-sizing: border-box;
     overflow: hidden;
   }

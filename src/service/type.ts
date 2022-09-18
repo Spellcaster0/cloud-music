@@ -112,3 +112,40 @@ export interface SearchResult {
   songCount: number
   songs: Array<SearchSong>
 }
+
+export interface VideoCategory {
+  id: number,
+  name: string,
+  url: null,
+  relatedVideoType: string,
+  selectTab: boolean,
+  abExtInfo: null
+}
+
+export interface VideoListItem {
+  type: number,
+  displayed: boolean,
+  alg: string,
+  extAlg: null,
+  data: {
+    coverUrl: string,
+    height: number,
+    width: number,
+    title: string,
+    description: string,
+    previewUrl: string,
+    previewDurationms: number,
+    durationms: number,
+    playTime: number,
+    vid: string,
+    videoGroup: Array<{
+      id: number,
+      name: string,
+      alg: null
+    }>,
+    creator: {
+      userId: number,
+      nickname: string
+    }
+  }
+}

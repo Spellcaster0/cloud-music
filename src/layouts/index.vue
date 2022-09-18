@@ -29,9 +29,11 @@ import Aside from './components/aside/index.vue'
 import Footer from './components/footer/index.vue'
 import Song from '@/views/song/index.vue'
 import { useAppStore } from '@/store/app'
+import { useVideoStore } from '@/store/video'
 import { ref, watch } from 'vue'
 
 const appStore = useAppStore()
+const videoStore = useVideoStore()
 const show = ref(false)
 watch(() => appStore.songShow, (newVal) => {
   if (newVal) {
@@ -43,16 +45,31 @@ watch(() => appStore.songShow, (newVal) => {
   }
 })
 
-// 点击非搜索盒子区域时, 关闭盒子
+// 点击非搜索盒子区域时，关闭盒子，点击非视频标签盒子时关闭盒子
 const app = ref<HTMLElement>()
-const appClick = (e: MouseEvent) => {
+
+function searchClose(e: MouseEvent) {
   if (appStore.searchBox === HTMLElement.prototype || appStore.searchInput === HTMLElement.prototype) return
   
   if (
     appStore.searchBox.contains(e.target as HTMLElement) ||
-      appStore.searchInput.contains(e.target as HTMLElement) 
+    appStore.searchInput.contains(e.target as HTMLElement) 
   ) return
-  appStore.showSearchBox = false  
+  appStore.showSearchBox = false
+}
+
+function videoGroupClose(e: MouseEvent) {
+  if (videoStore.videoGroupBox === HTMLElement.prototype) return
+  
+  if (
+    videoStore.videoGroupBox.contains(e.target as HTMLElement)
+  ) return
+  videoStore.showVideoGroupBox = false
+}
+
+const appClick = (e: MouseEvent) => {
+  searchClose(e)
+  videoGroupClose(e)
 }
 
 </script>
