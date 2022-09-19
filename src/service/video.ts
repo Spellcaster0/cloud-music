@@ -1,5 +1,5 @@
 import request from './request'
-import type { VideoCategory, VideoListItem } from './type'
+import type { VideoCategory, VideoListItem, VideoUrl } from './type'
 
 // 获取视频分类
 export function getVideoCategory() {
@@ -27,4 +27,8 @@ export function getVideoList(id: number, offset=0) {
         }
       }
     )
+}
+
+export function getVideoUrl(id: string) {
+  return request.get<any, ResList<VideoUrl>>(`/video/url?id=${id}`)
 }

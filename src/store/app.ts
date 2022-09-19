@@ -11,7 +11,9 @@ export const useAppStore = defineStore({
     showLoginBox: false,                      // 是否显示登录框
     showSearchBox: false,                     // 搜索内容
     searchBox: HTMLElement.prototype,         // 搜索盒子
-    searchInput: HTMLElement.prototype        // 搜索输入框
+    searchInput: HTMLElement.prototype,       // 搜索输入框
+    showAside: true,
+    showFooter: true
   }),
   getters: {
     

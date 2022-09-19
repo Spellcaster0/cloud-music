@@ -3,15 +3,15 @@
     <div class="app-header">
       <Header />
     </div>
-    <div class="app-main clearFix">
-      <div class="app-aside fl">
+    <div class="app-main">
+      <div class="app-aside" v-if="appStore.showAside">
         <Aside />
       </div>
-      <div class="app-content fl">
+      <div class="app-content">
         <router-view />
       </div>
     </div>
-    <div class="app-footer">
+    <div class="app-footer" v-if="appStore.showFooter">
       <Footer />
     </div>
     <!-- 这里使用v-if不行 -->
@@ -30,8 +30,10 @@ import Footer from './components/footer/index.vue'
 import Song from '@/views/song/index.vue'
 import { useAppStore } from '@/store/app'
 import { useVideoStore } from '@/store/video'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const appStore = useAppStore()
 const videoStore = useVideoStore()
 const show = ref(false)
@@ -43,6 +45,32 @@ watch(() => appStore.songShow, (newVal) => {
       show.value = false
     }, 500)
   }
+})
+
+onMounted(() => {
+  if (route.name === 'videoPlay')
+    appStore.$patch({
+      showAside: false,
+      showFooter: false
+    })
+  else
+    appStore.$patch({
+      showAside: true,
+      showFooter: true
+    })
+})
+
+watch(() => route.name, (newVal) => {
+  if (newVal === 'videoPlay')
+    appStore.$patch({
+      showAside: false,
+      showFooter: false
+    })
+  else
+    appStore.$patch({
+      showAside: true,
+      showFooter: true
+    })
 })
 
 // 点击非搜索盒子区域时，关闭盒子，点击非视频标签盒子时关闭盒子
@@ -103,6 +131,9 @@ const appClick = (e: MouseEvent) => {
     box-sizing: border-box;
   }
   .app-main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 100%;
     flex-grow: 1;
     background: #fff;
@@ -115,7 +146,7 @@ const appClick = (e: MouseEvent) => {
       box-sizing: border-box;
     }
     .app-content {
-      width: calc(100% - 260px);
+      flex-grow: 1;
       height: 100%;
       background: #fff;
       box-sizing: border-box;

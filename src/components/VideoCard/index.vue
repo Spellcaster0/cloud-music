@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { numFormatter, timeFormatter } from '@/utils/format'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 interface PropsType {
   id: string,
@@ -23,6 +26,8 @@ const props = withDefaults(defineProps<PropsType>(), {
 })
 
 const showPreview = ref(false)
+
+const pushVideo = () => router.push({ path: '/videoplay', query: { id: props.id } })
 </script>
 
 <template>
@@ -30,7 +35,9 @@ const showPreview = ref(false)
     <div 
       class="video-card-img" 
       @mouseover="showPreview = true"
-      @mouseleave="showPreview = false">
+      @mouseleave="showPreview = false"
+      @click="pushVideo"
+    >
       <el-image class="video-cover" :src="cover" fit="cover" />
       <div 
         class="play-count" 
@@ -50,7 +57,7 @@ const showPreview = ref(false)
         :src="previewUrl"
       />
     </div>
-    <h3 class="video-title">{{ name }}</h3>
+    <h3 class="video-title" @click="pushVideo">{{ name }}</h3>
     <p class="video-creator">by <span>{{ creator }}</span></p>
   </div>
 </template>

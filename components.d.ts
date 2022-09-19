@@ -28,6 +28,10 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     TabBar: typeof import('./src/components/TabBar/index.vue')['default']
+    Video: typeof import('./src/components/VideoPlayer/Video.vue')['default']
+    VideoCanvas: typeof import('./src/components/VideoPlayer/VideoCanvas.vue')['default']
     VideoCard: typeof import('./src/components/VideoCard/index.vue')['default']
+    VideoControl: typeof import('./src/components/VideoPlayer/VideoControl.vue')['default']
+    VideoPlayer: typeof import('./src/components/VideoPlayer/index.vue')['default']
   }
 }

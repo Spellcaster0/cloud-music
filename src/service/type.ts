@@ -149,3 +149,13 @@ export interface VideoListItem {
     }
   }
 }
+
+export interface VideoUrl {
+  id: string
+  url: string
+  size: number
+  validityTime: number,
+  needPay: boolean
+  payInfo: null,
+  r: number
+}

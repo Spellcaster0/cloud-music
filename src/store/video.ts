@@ -48,7 +48,8 @@ export const useVideoStore = defineStore({
         vid: '4A1A87EBE6CDE46DB8B9D02A7577244D'
       }
     }],
-    offset: 0
+    offset: 0,
+    videoMeta: HTMLVideoElement.prototype
   }),
   getters: {
     
