@@ -17,6 +17,7 @@ provide('playing', playing)
 provide('updatePlaying', updatePlaying)
 
 const videoPlayer = ref<HTMLElement>()
+const videoMeta = ref<HTMLVideoElement>()
 
 onMounted(() => {
   videoPlayer.value!.style.height = videoPlayer.value!.offsetWidth / 16 * 9 + 'px'
@@ -27,12 +28,22 @@ onMounted(() => {
 <template>
   <div class="video-player" ref="videoPlayer">
     <video-canvas 
-      v-if="typeof videoPlayer !== 'undefined'" 
-      :videoUrl="videoUrl" 
+      v-if="typeof videoMeta !== 'undefined'" 
+      :videoMeta="videoMeta!"
       :width="videoPlayer!.offsetWidth" 
     />
     
     <video-control />
+
+    <video 
+      class="video-meta"
+      :src="videoUrl" 
+      autoplay
+      controls
+      ref="videoMeta"
+      @play="playing = true"
+      @pause="playing = false"
+    ></video>
   </div>
 </template>
 

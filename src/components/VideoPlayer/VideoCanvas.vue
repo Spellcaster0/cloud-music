@@ -3,11 +3,10 @@ import { ref, onMounted, inject, watch } from 'vue'
 import type { Ref } from 'vue'
 
 const props = defineProps<{
-  videoUrl: string,
+  videoMeta: HTMLVideoElement
   width: number
 }>()
 
-const videoMeta = ref<HTMLVideoElement>()
 const videoCanvas = ref<HTMLCanvasElement>()
 
 class VideoClass {
@@ -39,14 +38,14 @@ let playing = inject('playing') as Ref
 
 watch(playing, (newVal) => {
   if (newVal)
-    videoMeta.value?.play()
+    props.videoMeta.play()
   else
-    videoMeta.value?.pause()
+    props.videoMeta.pause()
   
 })
 
 function initPlay() {
-  const videoClass = new VideoClass(videoCanvas.value!, videoMeta.value!)
+  const videoClass = new VideoClass(videoCanvas.value!, props.videoMeta!)
   drawVideo()
 
   function drawVideo() {
@@ -56,7 +55,7 @@ function initPlay() {
 
 }
 
-const videoCanPlay = () => initPlay()
+props.videoMeta.addEventListener('canplay', initPlay)
 onMounted(() => {
   videoCanvas.value!.style.width = props.width + 'px'
 
@@ -66,16 +65,6 @@ onMounted(() => {
 <template>
   <div class="video">
     <canvas id="video-canvas" ref="videoCanvas" width="320" height="180"></canvas>
-    <video 
-      class="video-meta"
-      :src="videoUrl" 
-      autoplay
-      controls
-      ref="videoMeta"
-      @play="playing = true"
-      @pause="playing = false"
-      @canplay="videoCanPlay"
-    ></video>
   </div>
 </template>
 
