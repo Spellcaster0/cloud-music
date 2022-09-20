@@ -33,5 +33,6 @@ declare module '@vue/runtime-core' {
     VideoCard: typeof import('./src/components/VideoCard/index.vue')['default']
     VideoControl: typeof import('./src/components/VideoPlayer/VideoControl.vue')['default']
     VideoPlayer: typeof import('./src/components/VideoPlayer/index.vue')['default']
+    VideoProgress: typeof import('./src/components/VideoPlayer/VideoProgress.vue')['default']
   }
 }

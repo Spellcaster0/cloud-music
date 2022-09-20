@@ -2,6 +2,8 @@
 import { ref, onMounted, provide } from 'vue'
 import VideoCanvas from './VideoCanvas.vue'
 import VideoControl from './VideoControl.vue'
+import VideoProgress from './VideoProgress.vue'
+import throttle from '@/utils/throttle'
 
 interface PropsType {
   videoUrl?: string,  
@@ -19,8 +21,27 @@ provide('updatePlaying', updatePlaying)
 const videoPlayer = ref<HTMLElement>()
 const videoMeta = ref<HTMLVideoElement>()
 
+const duration = ref<number>(0)
+const currentTime = ref<number>(0)
+const buffered = ref(0)
+
+const setCurrentTime = (val: number) => {
+  videoMeta.value!.currentTime = val
+}
+
 onMounted(() => {
   videoPlayer.value!.style.height = videoPlayer.value!.offsetWidth / 16 * 9 + 'px'
+  if (videoMeta.value instanceof HTMLVideoElement) {
+    videoMeta.value.addEventListener('canplay', () => {
+      duration.value = videoMeta.value!.duration
+    })
+    videoMeta.value.addEventListener('timeupdate', throttle(() => {
+      currentTime.value = videoMeta.value!.currentTime
+      buffered.value = videoMeta.value!.buffered.end(0)
+      
+    }, 16))
+  }
+
 })
 
 </script>
@@ -29,11 +50,23 @@ onMounted(() => {
   <div class="video-player" ref="videoPlayer">
     <video-canvas 
       v-if="typeof videoMeta !== 'undefined'" 
-      :videoMeta="videoMeta!"
+      :video-meta="videoMeta!"
       :width="videoPlayer!.offsetWidth" 
     />
-    
-    <video-control />
+
+    <video-progress 
+      v-if="typeof videoMeta !== 'undefined'" 
+      :duration="duration"
+      :current-time="currentTime"
+      :buffered="buffered"
+      @set-current-time="setCurrentTime"
+    />
+    <video-control 
+      v-if="typeof videoMeta !== 'undefined'" 
+      :video-meta="videoMeta" 
+      :duration="duration"
+      :current-time="currentTime"
+    />
 
     <video 
       class="video-meta"
@@ -58,6 +91,11 @@ onMounted(() => {
     left: 0;
     visibility: hidden;
     z-index: 1;
+  }
+  .video-progress {
+    position: absolute;
+    left: 0;
+    bottom: 36px;
   }
 }
 </style>
