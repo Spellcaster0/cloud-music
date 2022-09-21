@@ -28,6 +28,8 @@ const buffered = ref(0)
 const setCurrentTime = (val: number) => {
   videoMeta.value!.currentTime = val
 }
+const setPlayRate = (val: number) => videoMeta.value!.playbackRate = val
+provide('setPlayRate', setPlayRate)
 
 onMounted(() => {
   videoPlayer.value!.style.height = videoPlayer.value!.offsetWidth / 16 * 9 + 'px'
@@ -63,7 +65,7 @@ onMounted(() => {
     />
     <video-control 
       v-if="typeof videoMeta !== 'undefined'" 
-      :video-meta="videoMeta" 
+      :video-meta="videoMeta"
       :duration="duration"
       :current-time="currentTime"
     />

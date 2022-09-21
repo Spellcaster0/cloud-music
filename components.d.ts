@@ -11,6 +11,9 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
@@ -32,6 +35,7 @@ declare module '@vue/runtime-core' {
     VideoCanvas: typeof import('./src/components/VideoPlayer/VideoCanvas.vue')['default']
     VideoCard: typeof import('./src/components/VideoCard/index.vue')['default']
     VideoControl: typeof import('./src/components/VideoPlayer/VideoControl.vue')['default']
+    VideoControlSpeed: typeof import('./src/components/VideoPlayer/VideoControlSpeed.vue')['default']
     VideoPlayer: typeof import('./src/components/VideoPlayer/index.vue')['default']
     VideoProgress: typeof import('./src/components/VideoPlayer/VideoProgress.vue')['default']
   }

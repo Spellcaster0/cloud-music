@@ -2,6 +2,7 @@
 import { inject, ref } from 'vue'
 import type { Ref } from 'vue'
 import { timeFormatter } from '@/utils/format'
+import VideoControlSpeed from './VideoControlSpeed.vue'
 
 const props = defineProps<{
   videoMeta: HTMLVideoElement
@@ -38,7 +39,13 @@ function updatePlay() {
         </span>
       </div>
     </div>
-    <div class="video-control-setting">分辨率/倍速/音量/设置/画中画/全屏</div>
+    <div class="video-control-menu">
+      <video-control-speed class="menu-item" />
+      <div class="menu-item">音量</div>
+      <div class="menu-item">设置</div>
+      <div class="menu-item">画中画</div>
+      <div class="menu-item">全屏</div>
+    </div>
   </div>
 </template>
 
@@ -50,7 +57,7 @@ function updatePlay() {
   @include basicFlexBox();
   width: 100%;
   height: 40px;
-  padding: 10px;
+  padding: 0 10px;
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
   color: #fff;
   box-sizing: border-box;
@@ -65,6 +72,14 @@ function updatePlay() {
       span {
         margin: 0 3px;
       }
+    }
+  }
+  .video-control-menu {
+    @include basicFlexBox();
+    height: 100%;
+    .menu-item {
+      width: 48px;
+      font-size: 14px;
     }
   }
 }

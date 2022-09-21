@@ -63,11 +63,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="video">
+  <div class="video-canvas-container">
     <canvas id="video-canvas" ref="videoCanvas" width="320" height="180"></canvas>
   </div>
 </template>
 
 <style lang="scss" scoped>
-
+.video-canvas-container {
+  @include basicFlexBox($justifyContent: center);
+  height: 100%;
+  background-color: #000;
+}
 </style>
