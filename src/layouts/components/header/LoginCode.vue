@@ -42,11 +42,12 @@ const isSentTime = ref(60)
 const getCode = () => {
   getCodeApi(+loginForm.phone)
   isSent.value = true
-  setInterval(() => {
+  let timer = setInterval(() => {
     isSentTime.value--
     if (isSentTime.value < 0) {
       isSent.value = false
       isSentTime.value = 60
+      clearInterval(timer)
     }
   }, 1000)
 }
