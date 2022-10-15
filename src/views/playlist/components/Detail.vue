@@ -50,7 +50,7 @@ const props = defineProps<{
     border-radius: 5px;
   }
   .detail-content {
-    width: calc(100% - 200px);
+    width: calc(100vw - 200px - 260px - 82px);
     margin-left: 20px;
     .title {
       @include basicFlexBox($justifyContent: flex-start);
@@ -89,7 +89,7 @@ const props = defineProps<{
     .menu {
       margin-bottom: 18px;
     }
-    > p {
+    & > p {
       margin: 6px 0;
       font-size: 14px;
       letter-spacing: 1px;
@@ -100,6 +100,7 @@ const props = defineProps<{
         text-overflow: ellipsis;
       }
     }
+
     .tag {
       span {
         font-size: 14px;

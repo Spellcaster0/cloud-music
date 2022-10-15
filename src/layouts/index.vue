@@ -138,6 +138,7 @@ const appClick = (e: MouseEvent) => {
     flex-grow: 1;
     background: #fff;
     .app-aside {
+      flex-shrink: 0;
       width: 260px;
       height: 100%;
       padding: 10px;

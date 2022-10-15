@@ -12,13 +12,16 @@
       <el-menu-item index="/video">
         <span>视频</span>
       </el-menu-item>
-      <el-menu-item
-        v-for="item in userStore.playlist"
-        :key="item.id"
-        :index="`/playlist?id=${item.id}`"
-      >
-        <div>{{ item.name }}</div>
-      </el-menu-item>
+      <template v-if="userStore.playlist[0].id !== 0">
+        <el-menu-item
+          v-for="item in userStore.playlist"
+          :key="item.id"
+          :index="`/playlist?id=${item.id}`"
+        >
+          <div>{{ item.name }}</div>
+        </el-menu-item>
+      </template>
+      
     </el-menu>
   </div>
 </template>
