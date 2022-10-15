@@ -15,8 +15,8 @@ export const useUserStore = defineStore({
   },
   actions: {
     // 使用手机号密码登录
-    async loginPhone(phone: number, password: string) {
-      const res = await loginPhoneApi(phone, password)
+    async loginPhone(phone: number, password: string, captcha?: number) {
+      const res = await loginPhoneApi(phone, password, captcha)
       
       this.$patch({
         profile: res.profile,
@@ -26,6 +26,7 @@ export const useUserStore = defineStore({
       localCache.setCache('profile', res.profile)
       localCache.setCache('token', res.token)
       localCache.setCache('cookie', res.cookie)
+      window.location.reload()
     }
   },
 })

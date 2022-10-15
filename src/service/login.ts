@@ -16,7 +16,19 @@ import type { LoginType } from './type'
 //     }
 //   )
 // }
-export const loginPhoneApi = (phone: number, password: string) => {
+export const loginPhoneApi = (phone: number, password: string, captcha?: number) => {
+  if (captcha) {
+    return request.get<any, LoginType>(
+      '/login/cellphone',
+      {
+        params: {
+          phone,
+          password,
+          captcha
+        }
+      }
+    )
+  }
   return request.get<any, LoginType>(
     '/login/cellphone',
     {
@@ -25,5 +37,11 @@ export const loginPhoneApi = (phone: number, password: string) => {
         password,
       }
     }
+  )
+}
+
+export const getCodeApi = (phone: number) => {
+  return request.get(
+    `/captcha/sent?phone=${phone}&timestamp=${Date.now()}`
   )
 }
